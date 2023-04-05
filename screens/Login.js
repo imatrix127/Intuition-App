@@ -3,7 +3,7 @@ import { Input } from 'react-native-elements';
 import { auth } from '../firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { StyleSheet, Text, View, Image, TextInput, Button, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, Image, TextInput, Button, TouchableOpacity, ScrollView } from "react-native";
 
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -11,6 +11,9 @@ const Login = ({ navigation }) => {
 
   const openRegisterScreen = () => {
     navigation.navigate('Register');
+  };
+  const openForgotPassScreen = () => {
+    navigation.navigate("Forgot Password")
   };
 
   const signin = () => {
@@ -26,7 +29,7 @@ const Login = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={{ marginTop: 40, marginLeft: 30, marginBottom: 30 }}>
         <Text style={styles.mainText}>Hello! Welcome back! <Image style={styles.tinyLogo} /></Text>
         <Text style={styles.subText}>Hello again, We missed you!</Text>
@@ -58,14 +61,14 @@ const Login = ({ navigation }) => {
                       style={styles.checkbox}/> */}
 
         <Text style={{ marginLeft: 50 }}>Remember Me</Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={openForgotPassScreen}>
           <Text style={styles.forgot_button}>Forgot Password?</Text>
         </TouchableOpacity>
       </View>
 
       <TouchableOpacity style={styles.loginBtn} onPress={signin} >
         <Text style={styles.loginText}>LOGIN</Text>
-      </TouchableOpacity>
+      </TouchableOpacity >
 
       <View style={styles.SignUp}>
         <Text style={styles.Account}>Don't have an account? </Text>
@@ -73,7 +76,7 @@ const Login = ({ navigation }) => {
           <Text style={styles.SignUpText}>Sign Up</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </ScrollView>
   )
 }
 const styles = StyleSheet.create({

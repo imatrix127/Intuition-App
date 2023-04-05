@@ -1,11 +1,11 @@
 import React from 'react';
 
-import {createStackNavigator} from '@react-navigation/stack';
-import {NavigationContainer} from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
 import LoginScreen from './screens/Login';
 import RegisterScreen from './screens/Register';
 import ChatScreen from './screens/Chat';
-
+import ForgotPasswordScreen from './screens/ForgotPassword';
 const Stack = createStackNavigator();
 
 const App = () => {
@@ -14,6 +14,7 @@ const App = () => {
       <Stack.Navigator>
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Register" component={RegisterScreen} />
+        <Stack.Screen name="Forgot Password" component={ForgotPasswordScreen} />
         <Stack.Screen name="Chat" component={ChatScreen} />
       </Stack.Navigator>
     </NavigationContainer>
