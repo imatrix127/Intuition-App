@@ -26,7 +26,8 @@ const Register = ({ navigation }) => {
                 // Registered
                 const user = userCredential.user;
                 updateProfile(user, {
-                    displayName: name
+                    displayName: name,
+                    photoURL: avatar ? avatar : 'https://gravatar.com/avatar/94d45dbdba988afacf30d916e7aaad69?s=200&d=mp&r=x',
                 })
                     .then(() => {
                         alert('Registered, please login.');
@@ -52,10 +53,8 @@ const Register = ({ navigation }) => {
                     style={styles.input}
                     placeholder='Name'
                     placeholderTextColor="#aaaaaa"
-                    onChangeText={(text) => {
-                        setName(text);
-                    }}
                     value={name}
+                    onChangeText={text => setName(text)}
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                 />

@@ -1,14 +1,25 @@
 import React, { useLayoutEffect, useState, useCallback, useEffect } from 'react'
 import { View, Text } from 'react-native'
-import { auth } from '../firebase';
+import { auth, db } from '../firebase';
 import { AntDesign } from '@expo/vector-icons';
+import { StyleSheet, SafeAreaView } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Avatar } from 'react-native-elements';
-//import { GiftedChat } from 'react-native-gifted-chat'
+import { GiftedChat } from 'react-native-gifted-chat'
+import { collection, addDoc, getDocs, query, orderBy, onSnapshot } from 'firebase/firestore';
 
 const Chat = ({ navigation }) => {
     const [messages, setMessages] = useState([]);
+    const signOut = () => {
+        auth.signOut().then(() => {
+            // Sign-out successful.
+            navigation.replace('Login')
+        }).catch((error) => {
+            // an error happend
+        })
+    }
 
+    /*
     useEffect(() => {
         setMessages([
             {
@@ -24,24 +35,7 @@ const Chat = ({ navigation }) => {
             },
         ])
     }, [])
-
-    const onSend = useCallback((messages = []) => {
-        setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
-        const {
-            _id,
-            createAt,
-            text,
-            user
-        } = messages[0]
-        /*
-        db.collection('chats').add({
-            _id,
-            createAt,
-            text,
-            user
-        })
-        */
-    }, [])
+    */
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -52,12 +46,9 @@ const Chat = ({ navigation }) => {
 
                         rounded
                         source={{
-                            //uri: auth?.currentUser?.photoURL
-                            uri: 'https://static.vecteezy.com/system/resources/previews/000/574/512/original/vector-sign-of-user-icon.jpg'
+                            uri: auth?.currentUser?.photoURL
                         }}
-
                     />
-
                 </View>
             ),
             headerRight: () => (
@@ -70,32 +61,44 @@ const Chat = ({ navigation }) => {
                 </TouchableOpacity>
             )
         })
+
+        const q = query(collection(db, 'chats'), orderBy('createdAt', 'desc'));
+        const unsubscribe = onSnapshot(q, (snapshot) => setMessages(
+            snapshot.docs.map(doc => ({
+                _id: doc.data()._id,
+                createdAt: doc.data().createdAt.toDate(),
+                text: doc.data().text,
+                user: doc.data().user,
+            }))
+        ));
+
+        return () => {
+            unsubscribe();
+        };
+
+
     }, [navigation])
 
-    const signOut = () => {
-        auth.signOut().then(() => {
-            // Sign-out successful.
-            navigation.replace('Login')
-        }).catch((error) => {
-            // an error happend
-        })
-    }
+    const onSend = useCallback((messages = []) => {
+        setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
+        const { _id, createdAt, text, user, } = messages[0]
+
+        addDoc(collection(db, 'chats'), { _id, createdAt, text, user });
+
+    }, [])
+
     return (
-        <View>
+        <GiftedChat
+            messages={messages}
+            showAvatarForEveryMessage={true}
+            onSend={messages => onSend(messages)}
+            user={{
+                _id: auth?.currentUser?.email,
+                name: auth?.currentUser?.displayName,
+                avatar: auth?.currentUser?.photoURL
 
-        </View>
-
-/*<GiftedChat
-messages={messages}
-showAvatarForEveryMessage={true}
-onSend={messages => onSend(messages)}
-user={{
-    _id: auth?.currentUser?.email,
-    name: auth?.currentUser?.display,
-    avatar: auth?.currentUser?.photoURL
-
-}}
-/>*/
+            }}
+        />
     )
 
 };
