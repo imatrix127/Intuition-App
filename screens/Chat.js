@@ -62,7 +62,12 @@ const Chat = ({ navigation }) => {
             )
         })
 
-        const q = query(collection(db, 'chats'), orderBy('createdAt', 'desc'));
+        if (auth?.currentUser?.displayName == 'jav' || auth?.currentUser?.displayName == 'bob')
+            database = collection(db, 'chats')
+        else
+            database = collection(db, 'chats2')
+
+        const q = query(database, orderBy('createdAt', 'desc'));
         const unsubscribe = onSnapshot(q, (snapshot) => setMessages(
             snapshot.docs.map(doc => ({
                 _id: doc.data()._id,
@@ -83,7 +88,7 @@ const Chat = ({ navigation }) => {
         setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
         const { _id, createdAt, text, user, } = messages[0]
 
-        addDoc(collection(db, 'chats'), { _id, createdAt, text, user });
+        addDoc(database, { _id, createdAt, text, user });
 
     }, [])
 

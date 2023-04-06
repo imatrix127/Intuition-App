@@ -11,6 +11,7 @@ const Register = ({ navigation }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [avatar, setAvatar] = useState('');
 
     const openLoginScreen = () => {
         navigation.navigate('Login')
