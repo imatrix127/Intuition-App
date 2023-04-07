@@ -10,32 +10,6 @@ import { collection, addDoc, getDocs, query, orderBy, onSnapshot } from 'firebas
 
 const Chat = ({ navigation }) => {
     const [messages, setMessages] = useState([]);
-    const signOut = () => {
-        auth.signOut().then(() => {
-            // Sign-out successful.
-            navigation.replace('Login')
-        }).catch((error) => {
-            // an error happend
-        })
-    }
-
-    /*
-    useEffect(() => {
-        setMessages([
-            {
-
-                _id: 1,
-                text: 'hello deva',
-                createdAt: new Date(),
-                user: {
-                    _id: 2,
-                    name: 'React Native',
-                    avatar: 'http://placeimg.com/140/140/any',
-                },
-            },
-        ])
-    }, [])
-    */
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -50,15 +24,6 @@ const Chat = ({ navigation }) => {
                         }}
                     />
                 </View>
-            ),
-            headerRight: () => (
-                <TouchableOpacity style={{
-                    marginRight: 30
-                }}
-                    onPress={signOut}
-                >
-                    <Text>logout</Text>
-                </TouchableOpacity>
             )
         })
 

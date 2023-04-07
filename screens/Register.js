@@ -3,15 +3,15 @@ import styles from './styles';
 import { View, TextInput, TouchableOpacity, Text } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Input, Button } from 'react-native-elements';
-import { auth } from '../firebase';
+import { auth, db } from '../firebase';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { collection, addDoc, getDocs, query, orderBy, onSnapshot } from 'firebase/firestore';
 
 const Register = ({ navigation }) => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const [avatar, setAvatar] = useState('');
 
     const openLoginScreen = () => {
         navigation.navigate('Login')
@@ -22,13 +22,16 @@ const Register = ({ navigation }) => {
             alert("Passwords don't match.")
             return
         }
+
+        avatar = 'https://gravatar.com/avatar/94d45dbdba988afacf30d916e7aaad69?s=200&d=mp&r=x'
+
         createUserWithEmailAndPassword(auth, email, password)
             .then(async (userCredential) => {
                 // Registered
                 const user = userCredential.user;
                 updateProfile(user, {
                     displayName: name,
-                    photoURL: avatar ? avatar : 'https://gravatar.com/avatar/94d45dbdba988afacf30d916e7aaad69?s=200&d=mp&r=x',
+                    photoURL: avatar,
                 })
                     .then(() => {
                         alert('Registered, please login.');
@@ -42,6 +45,8 @@ const Register = ({ navigation }) => {
                 const errorMessage = error.message;
                 alert(errorMessage);
             });
+        database = collection(db, 'Contacts')
+        addDoc(database, { name, avatar })
     }
 
     return (
