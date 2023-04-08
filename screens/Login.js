@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     color: "#CCC0C0",
   },
   or: {
-    fontFamily: 'Poppins',
+    fontFamily: "Roboto",
     fontStyle: "normal",
     fontWeight: 400,
     fontSize: 15,
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   mainText: {
-    fontFamily: 'Poppins',
+    fontFamily: "Roboto",
     fontStyle: "normal",
     fontWeight: 400,
     fontSize: 24,
@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
 
   },
   subText: {
-    fontFamily: 'Poppins',
+    fontFamily: "Roboto",
     fontStyle: "normal",
     fontWeight: 400,
     fontSize: 13,
@@ -222,7 +222,7 @@ const styles = StyleSheet.create({
     marginLeft: 20
   },
   textBoxHeader: {
-    fontFamily: 'Poppins',
+    fontFamily: "Roboto",
     fontStyle: "normal",
     fontWeight: 500,
     fontSize: 13,
@@ -246,7 +246,7 @@ const styles = StyleSheet.create({
     marginLeft: 70
   },
   Account: {
-    fontFamily: 'Poppins',
+    fontFamily:"Roboto",
     fontStyle: "normal",
     fontWeight: 400,
     fontSize: 15,
@@ -254,7 +254,7 @@ const styles = StyleSheet.create({
     color: "#9D9393"
   },
   SignUpText: {
-    fontFamily: 'Poppins',
+    fontFamily: "Roboto",
     fontStyle: "normal",
     fontWeight: 600,
     fontSize: 15,
