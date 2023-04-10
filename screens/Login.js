@@ -39,6 +39,7 @@ const Login = ({ navigation }) => {
         <Text style={styles.mainText}>Hello! Welcome back! </Text>
         <Image style={styles.tinyLogo}
         source={require('/Users/sryan19@students.desu.edu/Dev/Intuition-App/assets/Wave.png')}
+        />
       
         
         

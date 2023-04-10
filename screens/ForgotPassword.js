@@ -9,9 +9,6 @@ const Login = ({ navigation }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const openRegisterScreen = () => {
-        navigation.navigate('Register');
-    };
 
     const signin = () => {
         signInWithEmailAndPassword(auth, email, password)
