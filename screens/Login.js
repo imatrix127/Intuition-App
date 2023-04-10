@@ -5,9 +5,11 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { StyleSheet, Text, View, Image, TextInput, Button, TouchableOpacity, ScrollView } from "react-native";
 
+
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [toggleCheckBox, setToggleCheckBox] = useState(false);
 
   const openRegisterScreen = () => {
     navigation.navigate('Register');
@@ -27,44 +29,64 @@ const Login = ({ navigation }) => {
         alert(errorMessage);
       });
   };
+  
 
   return (
+
     <ScrollView style={styles.container}>
-      <View style={{ marginTop: 40, marginLeft: 30, marginBottom: 30 }}>
-        <Text style={styles.mainText}>Hello! Welcome back! <Image style={styles.tinyLogo} /></Text>
-        <Text style={styles.subText}>Hello again, We missed you!</Text>
+ 
+      <View style={{ marginTop: 40, marginLeft: 30,flexDirection: 'row'}}>
+        <Text style={styles.mainText}>Hello! Welcome back! </Text>
+        <Image style={styles.tinyLogo}
+        source={require('/Users/sryan19@students.desu.edu/Dev/Intuition-App/assets/Wave.png')}
+      
+        
+        
       </View>
-      <Input
-        style={styles.TextInput}
-        placeholder='Enter your email'
-        placeholderTextColor="#003f5c"
-        label='Email Address'
-        leftIcon={{ type: 'material', name: 'email' }}
-        value={email}
-        onChangeText={text => setEmail(text)}
-      />
-      <Input
-        style={styles.TextInput}
-        placeholder='Enter your password'
-        placeholderTextColor="#003f5c"
-        label='Password'
-        leftIcon={{ type: 'material', name: 'lock' }}
-        value={password}
-        onChangeText={text => setPassword(text)}
-        secureTextEntry
-      />
+      <View style={{marginLeft: 30,flexDirection: 'row'}}>
+      <Text style={styles.subText}>Hello again, We missed you!</Text>
+      </View>
+      <View style={styles.email}>
+      
+        <Text style={styles.textBoxHeader}>Email Address</Text>
+          <View style={styles.inputView}>
+            
+            <TextInput
+            leftIcon={{ type: 'material', name: 'email' }}
+            value={email}
+            style={styles.TextInput}
+            placeholder="Enter Your Email"
+            placeholderTextColor="#aaaaaa"
+            onChangeText={text => setEmail(text)}
+            /> 
 
+          </View> 
+
+      </View>
+
+      <Text style={styles.textBoxHeader}>Password</Text>
+      <View style={styles.inputView}>
+
+        <TextInput
+          style={styles.TextInput}
+          placeholder="Enter Your Password"
+          placeholderTextColor="#aaaaaa"
+          secureTextEntry={true}
+          label='Password'
+          leftIcon={{ type: 'material', name: 'lock' }}
+          value={password}
+          onChangeText={text => setPassword(text)}
+        /> 
+
+      </View> 
+
+      
       <View style={styles.checkboxContainer}>
-        {/*<CheckBox
-                      value={isSelected}
-                      onValueChange={setSelection}
-                      style={styles.checkbox}/> */}
-
         <Text style={{ marginLeft: 50 }}>Remember Me</Text>
         <TouchableOpacity onPress={openForgotPassScreen}>
           <Text style={styles.forgot_button}>Forgot Password?</Text>
         </TouchableOpacity>
-      </View>
+      </View> 
 
       <TouchableOpacity style={styles.loginBtn} onPress={signin} >
         <Text style={styles.loginText}>LOGIN</Text>
@@ -97,7 +119,7 @@ const styles = StyleSheet.create({
     color: "#CCC0C0",
   },
   or: {
-    fontFamily: 'Poppins',
+    fontFamily: "Roboto",
     fontStyle: "normal",
     fontWeight: 400,
     fontSize: 15,
@@ -111,8 +133,11 @@ const styles = StyleSheet.create({
     marginBottom: 40,
 
   },
+  checkbox: {
+    alignSelf: 'center',
+  },
   mainText: {
-    fontFamily: 'Poppins',
+    fontFamily: "Roboto",
     fontStyle: "normal",
     fontWeight: 400,
     fontSize: 24,
@@ -121,7 +146,7 @@ const styles = StyleSheet.create({
 
   },
   subText: {
-    fontFamily: 'Poppins',
+    fontFamily: "Roboto",
     fontStyle: "normal",
     fontWeight: 400,
     fontSize: 13,
@@ -136,13 +161,15 @@ const styles = StyleSheet.create({
   },
 
   inputView: {
-    backgroundColor: "#DDDDDD",
-    borderRadius: 10,
-    width: "80%",
+    backgroundColor: "#fff",
+    borderRadius: 5,
+    width: "90%",
     height: 45,
     marginBottom: 20,
-    marginLeft: 30,
+    marginLeft: 20,
     alignItems: "center",
+    borderWidth:1,
+    borderColor:"#A2A7AD"
 
   },
 
@@ -153,6 +180,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     marginLeft: 10,
+    TextColor:"#aaaaaa"
 
   },
 
@@ -162,7 +190,7 @@ const styles = StyleSheet.create({
     height: 30,
     marginBottom: 30,
     color: '#FF0000',
-    marginLeft: 80,
+    marginLeft: 100,
 
   },
   row: {
@@ -173,13 +201,13 @@ const styles = StyleSheet.create({
 
   loginBtn: {
 
-    width: "80%",
-    borderRadius: 15,
+    width: "90%",
+    borderRadius: 5,
     height: 50,
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#188F79",
-    marginLeft: 30,
+    marginLeft: 20,
     marginTop: -20,
 
   },
@@ -198,15 +226,16 @@ const styles = StyleSheet.create({
   tinyLogo: {
     width: 50,
     height: 50,
+    marginLeft: 20
   },
   textBoxHeader: {
-    fontFamily: 'Poppins',
+    fontFamily: "Roboto",
     fontStyle: "normal",
     fontWeight: 500,
     fontSize: 13,
     lineHeight: 20,
     color: "#000000",
-    marginLeft: 30,
+    marginLeft: 20,
 
   },
   email: {
@@ -224,7 +253,7 @@ const styles = StyleSheet.create({
     marginLeft: 70
   },
   Account: {
-    fontFamily: 'Poppins',
+    fontFamily:"Roboto",
     fontStyle: "normal",
     fontWeight: 400,
     fontSize: 15,
@@ -232,7 +261,7 @@ const styles = StyleSheet.create({
     color: "#9D9393"
   },
   SignUpText: {
-    fontFamily: 'Poppins',
+    fontFamily: "Roboto",
     fontStyle: "normal",
     fontWeight: 600,
     fontSize: 15,

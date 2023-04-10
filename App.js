@@ -6,16 +6,21 @@ import LoginScreen from './screens/Login';
 import RegisterScreen from './screens/Register';
 import ChatScreen from './screens/Chat';
 import ForgotPasswordScreen from './screens/ForgotPassword';
+import HomeScreen from './screens/HomeScreen';
+
 const Stack = createStackNavigator();
 
 const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+
+        <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Register" component={RegisterScreen} />
         <Stack.Screen name="Forgot Password" component={ForgotPasswordScreen} />
         <Stack.Screen name="Chat" component={ChatScreen} />
+
       </Stack.Navigator>
     </NavigationContainer>
   );
