@@ -4,7 +4,7 @@ import { Avatar } from 'react-native-elements';
 import { StyleSheet, Text, View, Image, TextInput, Button, TouchableOpacity, Touchable } from "react-native";
 import { collection, addDoc, getDocs, query, orderBy, onSnapshot } from 'firebase/firestore';
 
-const Main = ({ navigation }) => {
+const Contacts = ({ navigation }) => {
     const [contacts, setContacts] = useState([]);
     const signOut = () => {
         auth.signOut().then(() => {
@@ -35,7 +35,7 @@ const Main = ({ navigation }) => {
         database = collection(db, 'Contacts')
 
         const q = query(database, orderBy('name', 'desc'));
-        const unsubscribe = onSnapshot(q, (snapshot) => setContacts(
+        const getUserInfo = onSnapshot(q, (snapshot) => setContacts(
             snapshot.docs.map(doc => ({
                 name: doc.data().name,
                 avatar: doc.data().avatar,
@@ -43,7 +43,7 @@ const Main = ({ navigation }) => {
         ));
 
         return () => {
-            unsubscribe();
+            getUserInfo();
         };
     }, [navigation])
 
@@ -77,4 +77,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Main;
+export default Contacts;

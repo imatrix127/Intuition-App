@@ -10,28 +10,12 @@ import { collection, addDoc, getDocs, query, orderBy, onSnapshot } from 'firebas
 
 const Chat = ({ navigation }) => {
     const [messages, setMessages] = useState([]);
+    const [contacts, setContacts] = useState([]);
 
     useLayoutEffect(() => {
-        navigation.setOptions({
-            headerLeft: () => (
-                <View style={{ marginLeft: 20 }}>
 
-                    <Avatar
 
-                        rounded
-                        source={{
-                            uri: auth?.currentUser?.photoURL
-                        }}
-                    />
-                </View>
-            )
-        })
-
-        if (auth?.currentUser?.displayName == 'jav' || auth?.currentUser?.displayName == 'bob')
-            database = collection(db, 'chats')
-        else
-            database = collection(db, 'chats2')
-
+        database = collection(db, 'chats2')
         const q = query(database, orderBy('createdAt', 'desc'));
         const unsubscribe = onSnapshot(q, (snapshot) => setMessages(
             snapshot.docs.map(doc => ({
@@ -42,17 +26,42 @@ const Chat = ({ navigation }) => {
             }))
         ));
 
+        userDatabase = collection(db, 'Contacts')
+        const p = query(userDatabase, orderBy('name', 'desc'));
+        const getUserInfo = onSnapshot(p, (snapshot) => setContacts(
+            snapshot.docs.map(doc => ({
+                Username: doc.data().name,
+                Useravatar: doc.data().avatar,
+            }))
+        ));
+
         return () => {
+            getUserInfo();
             unsubscribe();
         };
 
 
     }, [navigation])
 
+    navigation.setOptions({
+        headerLeft: () => (
+            <View style={{ marginLeft: 20 }}>
+
+                <Avatar
+
+                    rounded
+                    source={{
+                        uri: auth?.currentUser?.photoURL
+                    }}
+                />
+            </View>
+
+        )
+    })
+
     const onSend = useCallback((messages = []) => {
         setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
         const { _id, createdAt, text, user, } = messages[0]
-
         addDoc(database, { _id, createdAt, text, user });
 
     }, [])
@@ -70,7 +79,6 @@ const Chat = ({ navigation }) => {
             }}
         />
     )
-
 };
 
 export default Chat;
