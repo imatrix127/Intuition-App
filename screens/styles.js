@@ -66,7 +66,6 @@ export default StyleSheet.create({
         marginBottom: 20,
     },
     LogInText: {
-        fontFamily: 'Poppins',
         fontStyle: "normal",
         fontWeight: 600,
         fontSize: 15,
@@ -80,7 +79,6 @@ export default StyleSheet.create({
         marginLeft: 70
     },
     Account: {
-        fontFamily: 'Poppins',
         fontStyle: "normal",
         fontWeight: 400,
         fontSize: 15,

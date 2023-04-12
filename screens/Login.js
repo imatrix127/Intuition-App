@@ -5,7 +5,6 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { StyleSheet, Text, View, Image, TextInput, Button, TouchableOpacity, ScrollView } from "react-native";
 
-
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -29,39 +28,35 @@ const Login = ({ navigation }) => {
         alert(errorMessage);
       });
   };
-  
 
   return (
 
     <ScrollView style={styles.container}>
- 
-      <View style={{ marginTop: 40, marginLeft: 30,flexDirection: 'row'}}>
+
+      <View style={{ marginTop: 40, marginLeft: 30, flexDirection: 'row' }}>
         <Text style={styles.mainText}>Hello! Welcome back! </Text>
         <Image style={styles.tinyLogo}
-        source={require('/Users/sryan19@students.desu.edu/Dev/Intuition-App/assets/Wave.png')}
+          source={require('../assets/Wave.png')}
         />
-      
-        
-        
       </View>
-      <View style={{marginLeft: 30,flexDirection: 'row'}}>
-      <Text style={styles.subText}>Hello again, We missed you!</Text>
+      <View style={{ marginLeft: 30, flexDirection: 'row' }}>
+        <Text style={styles.subText}>Hello again, We missed you!</Text>
       </View>
       <View style={styles.email}>
-      
+
         <Text style={styles.textBoxHeader}>Email Address</Text>
-          <View style={styles.inputView}>
-            
-            <TextInput
+        <View style={styles.inputView}>
+
+          <TextInput
             leftIcon={{ type: 'material', name: 'email' }}
             value={email}
             style={styles.TextInput}
             placeholder="Enter Your Email"
             placeholderTextColor="#aaaaaa"
             onChangeText={text => setEmail(text)}
-            /> 
+          />
 
-          </View> 
+        </View>
 
       </View>
 
@@ -77,17 +72,17 @@ const Login = ({ navigation }) => {
           leftIcon={{ type: 'material', name: 'lock' }}
           value={password}
           onChangeText={text => setPassword(text)}
-        /> 
+        />
 
-      </View> 
+      </View>
 
-      
+
       <View style={styles.checkboxContainer}>
         <Text style={{ marginLeft: 50 }}>Remember Me</Text>
         <TouchableOpacity onPress={openForgotPassScreen}>
           <Text style={styles.forgot_button}>Forgot Password?</Text>
         </TouchableOpacity>
-      </View> 
+      </View>
 
       <TouchableOpacity style={styles.loginBtn} onPress={signin} >
         <Text style={styles.loginText}>LOGIN</Text>
@@ -168,9 +163,9 @@ const styles = StyleSheet.create({
     height: 45,
     marginBottom: 20,
     marginLeft: 20,
-    alignItems: "center",
-    borderWidth:1,
-    borderColor:"#A2A7AD"
+    alignItems: "flex-start",
+    borderWidth: 1,
+    borderColor: "#A2A7AD"
 
   },
 
@@ -181,8 +176,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     marginLeft: 10,
-    TextColor:"#aaaaaa"
-
+    alignItems: "center",
   },
 
 
@@ -254,7 +248,7 @@ const styles = StyleSheet.create({
     marginLeft: 70
   },
   Account: {
-    fontFamily:"Roboto",
+    fontFamily: "Roboto",
     fontStyle: "normal",
     fontWeight: 400,
     fontSize: 15,
