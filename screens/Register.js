@@ -46,7 +46,7 @@ const Register = ({ navigation }) => {
                 alert(errorMessage);
             });
         database = collection(db, 'Contacts')
-        addDoc(database, { name, avatar, password, email })
+        addDoc(database, { name, avatar, email })
     }
 
     return (

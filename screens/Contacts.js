@@ -15,8 +15,19 @@ const Contacts = ({ navigation }) => {
         })
     }
 
-    const openChatScreen = () => {
-        navigation.navigate('Chat')
+    const openChatScreen = (i) => {
+        email1 = String(auth?.currentUser?.email)
+        email2 = String(contacts[i].email)
+
+        if (email1 < email2)
+            databaseName = email1 + email2;
+        else
+            databaseName = email2 + email1;
+        selectedUser = contacts[i].name
+        ListOfData = [databaseName, selectedUser]
+
+        navigation.navigate('Chat', { ListOfData })
+
     };
 
     useLayoutEffect(() => {
@@ -39,6 +50,7 @@ const Contacts = ({ navigation }) => {
             snapshot.docs.map(doc => ({
                 name: doc.data().name,
                 avatar: doc.data().avatar,
+                email: doc.data().email,
             }))
         ));
 
@@ -48,17 +60,19 @@ const Contacts = ({ navigation }) => {
     }, [navigation])
 
     var fields = [];
+
     for (let i = 0; i < contacts.length; i++) {
-        fields.push(
-            <TouchableOpacity key={i} onPress={openChatScreen}>
-                <Text style={{ marginTop: i * 10, marginLeft: 0, marginBottom: 0 }}>
-                    <Avatar rounded
-                        source={{ uri: contacts[i].avatar }}
-                    />
-                    {contacts[i].name}
-                </Text>
-            </TouchableOpacity>
-        )
+        if (auth?.currentUser?.email != contacts[i].email)
+            fields.push(
+                <TouchableOpacity key={i} onPress={() => openChatScreen(i)}>
+                    <Text style={{ marginTop: i * 10, marginLeft: 0, marginBottom: 0 }}>
+                        <Avatar rounded
+                            source={{ uri: contacts[i].avatar }}
+                        />
+                        {contacts[i].name}
+                    </Text>
+                </TouchableOpacity>
+            )
     }
 
     return (

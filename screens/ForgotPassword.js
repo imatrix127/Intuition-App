@@ -63,7 +63,6 @@ const styles = StyleSheet.create({
         color: "#CCC0C0",
     },
     or: {
-        fontFamily: 'Poppins',
         fontStyle: "normal",
         fontWeight: 400,
         fontSize: 15,
@@ -78,7 +77,6 @@ const styles = StyleSheet.create({
 
     },
     mainText: {
-        fontFamily: 'Poppins',
         fontStyle: "normal",
         fontWeight: 400,
         fontSize: 24,
@@ -87,7 +85,6 @@ const styles = StyleSheet.create({
 
     },
     subText: {
-        fontFamily: 'Poppins',
         fontStyle: "normal",
         fontWeight: 400,
         fontSize: 13,

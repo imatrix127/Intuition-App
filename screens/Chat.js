@@ -7,15 +7,19 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Avatar } from 'react-native-elements';
 import { GiftedChat } from 'react-native-gifted-chat'
 import { collection, addDoc, getDocs, query, orderBy, onSnapshot } from 'firebase/firestore';
+import { useRoute } from '@react-navigation/native';
+
 
 const Chat = ({ navigation }) => {
     const [messages, setMessages] = useState([]);
     const [contacts, setContacts] = useState([]);
 
+    const route = useRoute()
+
     useLayoutEffect(() => {
 
 
-        database = collection(db, 'chats2')
+        database = collection(db, String(route.params.ListOfData[0]))
         const q = query(database, orderBy('createdAt', 'desc'));
         const unsubscribe = onSnapshot(q, (snapshot) => setMessages(
             snapshot.docs.map(doc => ({
@@ -54,6 +58,7 @@ const Chat = ({ navigation }) => {
                         uri: auth?.currentUser?.photoURL
                     }}
                 />
+                <Text>{route.params.ListOfData[1]}</Text>
             </View>
 
         )
