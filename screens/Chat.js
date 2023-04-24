@@ -13,8 +13,11 @@ import { useRoute } from '@react-navigation/native';
 const Chat = ({ navigation }) => {
     const [messages, setMessages] = useState([]);
     const [contacts, setContacts] = useState([]);
-
     const route = useRoute()
+
+    const openAI = () => {
+        navigation.navigate("AI")
+    };
 
     useLayoutEffect(() => {
 
@@ -60,6 +63,19 @@ const Chat = ({ navigation }) => {
                 />
                 <Text>{route.params.ListOfData[1]}</Text>
             </View>
+
+
+        ),
+
+        headerRight: () => (
+            <View style={{ marginRight: 20 }}>
+
+                <TouchableOpacity onPress={openAI}>
+                    <Text>AI RESPONSES</Text>
+                </TouchableOpacity>
+
+            </View>
+
 
         )
     })

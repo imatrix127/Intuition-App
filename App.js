@@ -8,6 +8,7 @@ import ChatScreen from './screens/Chat';
 import ForgotPasswordScreen from './screens/ForgotPassword';
 import HomeScreen from './screens/HomeScreen';
 import ContactsScreen from './screens/Contacts';
+import AIScreen from './screens/AI';
 
 const Stack = createStackNavigator();
 
@@ -21,6 +22,7 @@ const App = () => {
         <Stack.Screen name="Register" component={RegisterScreen} />
         <Stack.Screen name="Chat" component={ChatScreen} />
         <Stack.Screen name="Contacts" component={ContactsScreen} />
+        <Stack.Screen name="AI" component={AIScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
