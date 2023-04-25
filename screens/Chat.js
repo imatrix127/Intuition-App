@@ -10,17 +10,25 @@ import { collection, addDoc, getDocs, query, orderBy, onSnapshot } from 'firebas
 import { useRoute } from '@react-navigation/native';
 
 
+
 const Chat = ({ navigation }) => {
     const [messages, setMessages] = useState([]);
     const [contacts, setContacts] = useState([]);
     const route = useRoute()
 
     const openAI = () => {
-        navigation.navigate("AI")
+        const otherUsersMessages = {}
+        y = 0
+        for (let i = 0; i < messages.length; i++) {
+            if ((messages[i].user._id) != (auth?.currentUser?.email)) {
+                otherUsersMessages[y] = messages[i].text
+                y += 1
+            }
+        }
+        navigation.navigate("AI", { otherUsersMessages })
     };
 
     useLayoutEffect(() => {
-
 
         database = collection(db, String(route.params.ListOfData[0]))
         const q = query(database, orderBy('createdAt', 'desc'));
@@ -41,6 +49,8 @@ const Chat = ({ navigation }) => {
                 Useravatar: doc.data().avatar,
             }))
         ));
+
+
 
         return () => {
             getUserInfo();
