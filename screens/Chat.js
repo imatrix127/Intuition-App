@@ -1,5 +1,5 @@
 import React, { useLayoutEffect, useState, useCallback, useEffect } from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, LogBox } from 'react-native'
 import { auth, db } from '../firebase';
 import { AntDesign } from '@expo/vector-icons';
 import { StyleSheet, SafeAreaView } from 'react-native';
@@ -10,14 +10,27 @@ import { collection, addDoc, getDocs, query, orderBy, onSnapshot } from 'firebas
 import { useRoute } from '@react-navigation/native';
 
 
+
 const Chat = ({ navigation }) => {
     const [messages, setMessages] = useState([]);
     const [contacts, setContacts] = useState([]);
-
     const route = useRoute()
+
+    const openAI = () => {
+        const otherUsersMessages = {}
+        y = 0
+        for (let i = 0; i < messages.length; i++) {
+            if ((messages[i].user._id) != (auth?.currentUser?.email)) {
+                otherUsersMessages[y] = messages[i].text
+                y += 1
+            }
+        }
+        navigation.navigate("AI", { otherUsersMessages })
+    };
 
     useLayoutEffect(() => {
 
+        LogBox.ignoreAllLogs(); //disable warnings on screen
 
         database = collection(db, String(route.params.ListOfData[0]))
         const q = query(database, orderBy('createdAt', 'desc'));
@@ -38,6 +51,8 @@ const Chat = ({ navigation }) => {
                 Useravatar: doc.data().avatar,
             }))
         ));
+
+
 
         return () => {
             getUserInfo();
@@ -60,6 +75,19 @@ const Chat = ({ navigation }) => {
                 />
                 <Text>{route.params.ListOfData[1]}</Text>
             </View>
+
+
+        ),
+
+        headerRight: () => (
+            <View style={{ marginRight: 20 }}>
+
+                <TouchableOpacity onPress={openAI}>
+                    <Text>AI RESPONSES</Text>
+                </TouchableOpacity>
+
+            </View>
+
 
         )
     })
