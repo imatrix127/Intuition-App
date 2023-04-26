@@ -1,5 +1,5 @@
 import React, { useLayoutEffect, useState, useCallback, useEffect } from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, LogBox } from 'react-native'
 import { auth, db } from '../firebase';
 import { AntDesign } from '@expo/vector-icons';
 import { StyleSheet, SafeAreaView } from 'react-native';
@@ -29,6 +29,8 @@ const Chat = ({ navigation }) => {
     };
 
     useLayoutEffect(() => {
+
+        LogBox.ignoreAllLogs(); //disable warnings on screen
 
         database = collection(db, String(route.params.ListOfData[0]))
         const q = query(database, orderBy('createdAt', 'desc'));

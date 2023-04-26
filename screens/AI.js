@@ -1,10 +1,11 @@
-import { StyleSheet, Text, View, Image, TextInput, Button, TouchableOpacity, ScrollView, ToastAndroid, Clipboard } from "react-native";
+import { StyleSheet, Text, View, Image, TextInput, Button, TouchableOpacity, ScrollView, ToastAndroid, Clipboard, LogBox } from "react-native";
 import React, { useLayoutEffect, useState, useCallback, useEffect } from 'react'
 import { useRoute } from '@react-navigation/native';
 import { collection, addDoc, getDocs, query, orderBy, onSnapshot } from 'firebase/firestore';
 import { auth, db } from '../firebase';
 
 const AI = ({ navigation }) => {
+
     const [answersfinal, setAnswerfinal] = useState([]);
     const route = useRoute()
 
@@ -25,6 +26,9 @@ const AI = ({ navigation }) => {
     };
 
     useEffect(() => {
+
+        LogBox.ignoreAllLogs(); //disable warnings on screen
+
         fetch('https://api.openai.com/v1/engines/text-davinci-002/completions', {
             method: 'POST',
             headers: {
